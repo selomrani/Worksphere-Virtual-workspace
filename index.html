@@ -29,6 +29,9 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
+                    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Add">Add
+                        new worker</button>
+
                     <div class="card my-3">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -38,11 +41,10 @@
                                     <h6 class="card-title mb-0">Tayeb souini</h6>
                                     <p class="card-text text-muted mb-0">tayebsouini.2@gmail.com</p>
                                 </div>
-
                                 <div class="ms-auto d-flex flex-column gap-1">
                                     <button type="button" class="btn btn-success btn-sm">Assign</button>
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Edit</button>
+                                        data-bs-target="#modify">Edit</button>
                                 </div>
                             </div>
                         </div>
@@ -52,21 +54,19 @@
         </div>
         <div class="col-9 border border-success vh-100" id="workspace"></div>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit general infos</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
                 <div class="modal-body">
-
                     <div class="d-flex justify-content-center mb-3">
                         <img src="assets/imgs/711-1728902249.jpg" class="rounded-circle" alt="Profile Picture"
                             style="width: 60px; height: 60px;">
                     </div>
-
                     <form>
                         <div class="mb-2">
                             <label for="fname" class="form-label">First name</label>
@@ -82,8 +82,16 @@
                                 value="tayebsouini.2@gmail.com" disabled>
                         </div>
                         <div class="mb-2">
+                            <label for="phone" class="form-label">Phone number</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        <div class="mb-2">
                             <label for="photo" class="form-label">Profile picture</label><br>
                             <input type="file" name="pfp" id="photo" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label for="occupation" class="form-label"> Occupation</label>
+                            <input type="select" class="form-control" id="occupation" value="coach">
                         </div>
                     </form>
                 </div>
@@ -93,7 +101,49 @@
                 </div>
             </div>
         </div>
+    </div> <div class="modal fade" id="Add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add new worker</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-2">
+                            <label for="fname" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="fname">
+                        </div>
+                        <div class="mb-2">
+                            <label for="lname" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="lname">
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1">
+                        </div>
+                        <div class="mb-2">
+                            <label for="phone" class="form-label">Phone number</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        <div class="mb-2">
+                            <label for="photo" class="form-label">Profile picture</label><br>
+                            <input type="file" name="pfp" id="photo" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label for="occupation" class="form-label"> Occupation</label>
+                            <input type="select" class="form-control" id="occupation"">
+                        </div>
+                    </form>
+                </div>
+                <div class=" modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
