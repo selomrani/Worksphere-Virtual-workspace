@@ -1,0 +1,13 @@
+body{
+    background-color: rgb(216, 212, 212);
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    width: 100vw;
+}
+#workspace{
+    background-image: url(assets/imgs/plan-69159a65c5684763515973.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90% 90%;
+}
