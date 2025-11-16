@@ -5,9 +5,60 @@ body{
     height: 100vh;
     width: 100vw;
 }
-#workspace{
+.workspace{
     background-image: url(assets/imgs/plan-69159a65c5684763515973.jpg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 95% 95%;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+}
+.leftside {
+    width: 38%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.centerhallway {
+    width: 24%;
+    height: 100%;
+}
+#conferenceroom{
+    width: 100%; 
+    height: 34%;
+    background-color: aqua;
+    text-align: center;
+    opacity: 30%;
+}
+#reception{
+    width : 100%;
+    height: 68%;
+    background-color: blueviolet;
+    text-align: center;
+    opacity: 30%
+}
+.centerhallway{
+    width: 16.5%;
+    height: 100%;
+}
+#hallway1{
+    width: 100%;
+    height: 99%;
+    background-color: brown;
+    text-align: center;
+    opacity: 30%
+}
+.rightside{
+    width :60%;
+    height : 99%;
+    display : flex;
+    flex-direction: column;
+    background-color: blue;
+}
+#serversroom{
+    width: 50%;
+    height: 100%;
+    background-color: chartreuse;
+    text-align: center;
+    opacity: 30%
 }
