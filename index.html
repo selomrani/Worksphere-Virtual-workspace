@@ -15,12 +15,12 @@
         <div class="col-3 border border-primary vh-100 text-center" id="sidebar">
             <button class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                Manage Workspaces
+                Manage Workspace
             </button>
             <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
                 aria-labelledby="staticBackdropLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="staticBackdropLabel">Youcode staff (Unassigned)</h5>
+                    <h5 class="offcanvas-title" id="staticBackdropLabel">Available staff (Unassigned)</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body d-flex flex-column">
@@ -29,7 +29,8 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
-                    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Add">Add
+                    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Add"
+                        id="Add-btn">Add
                         new worker</button>
 
                     <div class="card my-3">
@@ -71,13 +72,13 @@
                             Servers room
                         </div>
                         <div class="room" id="securityroom">
-                            Security room
+                            <div class="room-text">Security room</div>
                         </div>
                     </div>
                     <div class="room" id="hallway2">hallway</div>
                     <div class="bottomsideright d-flex flex-row">
                         <div class="room" id="staff">staff room</div>
-                        <div class="room" id="vault">Vault</div>
+                        <div class="room opacity-50" id="vault">Vault</div>
                     </div>
                 </div>
             </div>
@@ -140,7 +141,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="addform">
                         <div class="mb-2">
                             <label for="fname" class="form-label">First name</label>
                             <input type="text" class="form-control" id="fname">
@@ -150,7 +151,7 @@
                             <input type="text" class="form-control" id="lname">
                         </div>
                         <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <label for="exampleInputEmail1" class="form-label" id="emailadd">Email address</label>
                             <input type="email" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-2">
@@ -165,12 +166,9 @@
                             <label for="occupation" class="form-label"> Occupation</label>
                             <input type="select" class="form-control" id="occupation"">
                         </div>
+                         <button type=" button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="addBtnsave"> Save changes </button>
                     </form>
-                </div>
-                <div class=" modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
                 </div>
             </div>
         </div>

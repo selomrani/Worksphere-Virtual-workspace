@@ -90,5 +90,9 @@ body{
     height: 100%;
     background-color: rgb(231, 219, 219);
     text-align: center;
-    opacity: 30%
+}
+.room-text{
+    font-size: larger;
+    text-align: center;
+    opacity: 100%;
 }

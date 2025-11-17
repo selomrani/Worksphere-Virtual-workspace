@@ -4,3 +4,17 @@ async function fetchjson(file) {
         console.log(data)
 }
 fetchjson("data.json")
+
+function isValidEmail(email) {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return regex.test(email);
+}
+// let email ="elomranisoufyan@gmail.com"
+
+const addform = document.forms
+const addBtnsave = document.getElementById("addBtnsave")
+addform.addEventListener("submit" ,function(e){
+  e.preventDefault()
+  let emailtest = getElementById("emailadd").value;
+  console.log(isValidEmail(emailtest))
+})
