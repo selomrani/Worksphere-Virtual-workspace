@@ -47,7 +47,7 @@
             <div class="workspace d-flex flex-row">
                 <div class="leftside d-flex flex-column h-100">
 
-                    <div class="room p-3 flex-grow-1" id="conferenceroom">
+                    <div class="room p-3 flex-grow-1 position-relative" id="conferenceroom">
 
                         <div class="row row-cols-1 g-2 justify-content-center align-content-center h-100"
                             id="worker-container">
@@ -93,9 +93,20 @@
                             </div>
 
                         </div>
+                        <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
+                             <button type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="conferenceroom" data-bs-toggle="modal" data-bs-target="#addtoroom">
+                                <i class="bi bi-person-plus"></i> Add Staff
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="room" id="reception"></div>
+                    <div class="room position-relative" id="reception">
+                        <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
+                             <button type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="reception" data-bs-toggle="modal" data-bs-target="#addtoroom">
+                                <i class="bi bi-person-plus"></i> Add Staff
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -103,15 +114,42 @@
 
                 <div class="rightside d-flex flex-column h-100">
                     <div class="uppercolumnright d-flex flex-row">
-                        <div class="room" id="serversroom"></div>
-                        <div class="room" id="securityroom">
+                        
+                        <div class="room position-relative" id="serversroom">
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
+                                <button type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="serversroom" data-bs-toggle="modal" data-bs-target="#addtoroom">
+                                    <i class="bi bi-person-plus"></i> Add Staff
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="room position-relative" id="securityroom">
                             <div class="room-text"></div>
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
+                                <button type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="securityroom" data-bs-toggle="modal" data-bs-target="#addtoroom">
+                                    <i class="bi bi-person-plus"></i> Add Staff
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="room" id="hallway2"></div>
                     <div class="bottomsideright d-flex flex-row">
-                        <div class="room" id="staff"></div>
-                        <div class="room opacity-50" id="vault"></div>
+                        
+                        <div class="room position-relative" id="staff">
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
+                                <button type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="staff" data-bs-toggle="modal" data-bs-target="#addtoroom">
+                                    <i class="bi bi-person-plus"></i> Add Staff
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="room opacity-50 position-relative" id="vault">
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
+                                <button type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="vault" data-bs-toggle="modal" data-bs-target="#addtoroom">
+                                    <i class="bi bi-person-plus"></i> Add Staff
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -213,6 +251,25 @@
                             <button type="submit" class="btn btn-primary" id="addBtnsave"> Save changes </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addtoroom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addtoroomLabel">Assign staff to room</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="renderminicards">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="assignStaffBtn">Assign</button>
                 </div>
             </div>
         </div>

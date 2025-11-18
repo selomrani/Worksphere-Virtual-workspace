@@ -1,10 +1,12 @@
 let staff = []
+localStorage.setItem("staff",JSON.stringify(staff))
 async function fetchjson(file) {
   let response = await fetch(file)
   let data = await response.json()
   console.log(data)
 }
 fetchjson("data.json")
+
 
 function isValidEmail(email) {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -45,14 +47,14 @@ function renderminicards(){
     cardyy.innerHTML=`<div class="card my-3">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <img src="https://intranet.youcode.ma/storage/users/profile/1558-1760996258.png" class="rounded-circle me-3"
+                                <img src="assets/imgs/user-solid-full.svg" class="rounded-circle me-3"
                                     alt="Profile Picture" style="width: 60px; height: 60px;">
                                 <div>
                                     <h6 class="card-title mb-0">${staff.fname} ${staff.lname}</h6>
                                     <p class="card-text text-muted mb-0">${staff.email}</p>
                                 </div>
                                 <div class="ms-auto d-flex flex-column gap-1">
-                                    <button type="button" class="btn btn-success btn-sm">Assign</button>
+                                    <button type="button" class="btn btn-danger btn-sm" ><i class="bi bi-trash"></i></button>
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#modify" aria-label="Edit">
                                         <i class="bi bi-pencil-square"></i>
