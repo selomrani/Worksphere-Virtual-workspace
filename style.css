@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(216, 212, 212);
+    /* background-color: rgb(216, 212, 212); */
     margin: 0px;
     padding: 0px;
     height: 100vh;
@@ -22,6 +22,7 @@ body{
 .centerhallway {
     width: 24%;
     height: 100%;
+    opacity: 30%;
 }
 #conferenceroom{
     width: 100%; 
@@ -43,7 +44,7 @@ body{
     height: 99%;
     /* background-color: rgb(45, 0, 31); */
     text-align: center;
-    opacity: 80%
+    /* opacity: 80% */
 }
 #serversroom{
     width: 47%;
@@ -72,7 +73,7 @@ body{
     height : 32%;
     /* background-color: rgb(18, 189, 163); */
     text-align: center;
-    /* opacity: 40%; */
+    opacity: 40%;
 }
 .bottomsideright{
     width : 110%;

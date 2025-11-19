@@ -14,7 +14,7 @@
 <body>
     <div class="row">
         <div class="col-3 border border-primary vh-100 text-center" id="sidebar">
-            <button class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas"
+            <button id="togglesidebar" class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
                 Manage Workspace
             </button>
@@ -199,8 +199,11 @@
                         <div class="mb-2">
                             <label for="occupation" class="form-label"> Occupation</label>
                             <select class="form-select" id="occupation">
-                                <option value="coach" selected>Coach</option>
-                                <option value="developer">Developer</option>
+                                <option>IT guy</option>
+                                <option>receptionist</option>
+                                <option>manager</option>
+                                <option>security officer</option>
+                                <option>Cleaning staff</option>
                             </select>
                         </div>
                     </form>
@@ -270,7 +273,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="renderminicards">
+                    <div id="stafflist">
                     </div>
                 </div>
                 <div class="modal-footer">

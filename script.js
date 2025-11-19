@@ -60,7 +60,7 @@ function renderminicards() {
                                 </div>
                                 <div class="ms-auto d-flex flex-column gap-1">
                                     <button type="button" class="btn btn-danger btn-sm" ><i class="bi bi-trash"></i></button>
-                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#modify" aria-label="Edit">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
@@ -70,3 +70,38 @@ function renderminicards() {
     minicardsrender.appendChild(cardyy)
   })
 };
+function renderwunassignedlist() {
+  const stafflist = document.getElementById("stafflist")
+  stafflist.innerHTML = "";
+  staff.forEach(staffMember => {
+    const profile = document.createElement("div");
+    profile.innerHTML = `<div class="card my-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img src="assets/imgs/user-solid-full.svg" class="rounded-circle me-3"
+                                    alt="Profile Picture" style="width: 60px; height: 60px;">
+                                <div>
+                                    <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
+                                    <p class="card-text text-muted mb-0">${staffMember.email}</p>
+                                </div>
+                                <div class="ms-auto d-flex flex-column gap-1">
+                                    <button type="button" class="btn btn-success btn-sm" ><i class="bi bi-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#modify" aria-label="Edit">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`
+    stafflist.appendChild(profile)
+  }
+  )
+}
+
+const addstaffbtns = document.querySelectorAll('.add-staff-btn');
+
+addstaffbtns.forEach(button => {
+    button.addEventListener('click', function() {
+        renderwunassignedlist();
+    });
+});
