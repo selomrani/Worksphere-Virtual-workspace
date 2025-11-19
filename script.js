@@ -3,7 +3,6 @@ async function fetchjson(file) {
   let response = await fetch(file)
   let data = await response.json()
   console.log(data)
-
 }
 fetchjson("data.json")
 
@@ -35,17 +34,25 @@ addform.addEventListener("submit", (event) => {
       occupation: occupation,
     };
     staff.push(newstaff);
-    console.log(staff);
     renderminicards()
+    storeStaffDataToLocalStorage()
   } else {
     alert("Plese enter valid infos");
   }
 
 });
+function storeStaffDataToLocalStorage() {
+  const staffLocal = JSON.stringify(staff);
+  localStorage.setItem("staffData", staffLocal);
 
-const minicardsrender = document.getElementById("minicardsrender");
+}
 
+
+function GetStaffDataFromLocalStorage() {
+
+}
 function renderminicards() {
+  const minicardsrender = document.getElementById("minicardsrender");
   minicardsrender.innerHTML = "";
   staff.forEach(staffMember => {
     const cardyy = document.createElement("div");
@@ -101,7 +108,7 @@ function renderwunassignedlist() {
 const addstaffbtns = document.querySelectorAll('.add-staff-btn');
 
 addstaffbtns.forEach(button => {
-    button.addEventListener('click', function() {
-        renderwunassignedlist();
-    });
+  button.addEventListener('click', function () {
+    renderwunassignedlist();
+  });
 });
