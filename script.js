@@ -45,11 +45,11 @@ addform.addEventListener("submit", (event) => {
 
 const minicardsrender = document.getElementById("minicardsrender");
 
-function renderminicards(){
-  minicardsrender.innerHTML="";
-  staff.forEach(staffMember=>{
+function renderminicards() {
+  minicardsrender.innerHTML = "";
+  staff.forEach(staffMember => {
     const cardyy = document.createElement("div");
-    cardyy.innerHTML=`<div class="card my-3">
+    cardyy.innerHTML = `<div class="card my-3">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <img src="assets/imgs/user-solid-full.svg" class="rounded-circle me-3"
@@ -67,6 +67,6 @@ function renderminicards(){
                                 </div>
                             </div>
                         </div>`
-                        minicardsrender.appendChild(cardyy)
+    minicardsrender.appendChild(cardyy)
   })
 };
