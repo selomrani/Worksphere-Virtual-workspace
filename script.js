@@ -48,8 +48,13 @@ function storeStaffDataToLocalStorage() {
 }
 
 
-function GetStaffDataFromLocalStorage() {
-
+function getDataFromLocalStorage() {
+  const staffLocal = localStorage.getItem("staffData");
+  if (staffLocal) {
+    const storedStaff = JSON.parse(staffLocal);
+    staff = storedStaff;
+    renderminicards();
+  }
 }
 function renderminicards() {
   const minicardsrender = document.getElementById("minicardsrender");
@@ -66,7 +71,7 @@ function renderminicards() {
                                     <p class="card-text text-muted mb-0">${staffMember.email}</p>
                                 </div>
                                 <div class="ms-auto d-flex flex-column gap-1">
-                                    <button type="button" class="btn btn-danger btn-sm" ><i class="bi bi-trash"></i></button>
+                                    <button id="deletebTN" type="button" class="btn btn-danger btn-sm" ><i class="bi bi-trash"></i></button>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#modify" aria-label="Edit">
                                         <i class="bi bi-pencil-square"></i>
@@ -94,8 +99,8 @@ function renderwunassignedlist() {
                                 <div class="ms-auto d-flex flex-column gap-1">
                                     <button type="button" class="btn btn-success btn-sm" ><i class="bi bi-plus-circle"></i></button>
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#modify" aria-label="Edit">
-                                        <i class="bi bi-pencil-square"></i>
+                                        data-bs-target="#assignto" aria-label="Edit">
+                                        <i class="bi bi-info-circle"></i>
                                     </button>
                                 </div>
                             </div>
@@ -112,3 +117,12 @@ addstaffbtns.forEach(button => {
     renderwunassignedlist();
   });
 });
+
+
+getDataFromLocalStorage();
+
+function deleteAWorker() {
+  document.getElementById("deletebTN").addEventListener("click",function(
+    
+  ))
+}
