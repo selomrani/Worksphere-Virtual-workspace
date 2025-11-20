@@ -20,6 +20,18 @@ function isValidEmail(email) {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return regex.test(email);
 }
+const addexperiences = document.getElementById("addexp")
+const expfield = document.getElementById("expfield")
+addexperiences.addEventListener("click",(e)=>{
+  expfield.innerHTML+=`
+  <label class="form-label">Company</label>
+                        <input type="text" class="form-control">
+                        <label  class="form-label">From </label>
+                        <input type="date" class="form-control">
+                        <label class="form-label">To</label>
+                        <input type="date" class="form-control">`
+})
+
 
 function addnewstaff(){
 const addform = document.getElementById("addform");
