@@ -46,11 +46,15 @@ function storeStaffDataToLocalStorage() {
   localStorage.setItem("staffData", staffLocal);
 
 }
-
-
-function GetStaffDataFromLocalStorage() {
-
+function getDataFromLocalStorage() {
+  const staffLocal = localStorage.getItem("staffData");
+  if (staffLocal) {
+    const storedStaff = JSON.parse(staffLocal);
+    staff = storedStaff;
+    renderminicards();
+  }
 }
+
 function renderminicards() {
   const minicardsrender = document.getElementById("minicardsrender");
   minicardsrender.innerHTML = "";
@@ -112,3 +116,4 @@ addstaffbtns.forEach(button => {
     renderwunassignedlist();
   });
 });
+getDataFromLocalStorage()
