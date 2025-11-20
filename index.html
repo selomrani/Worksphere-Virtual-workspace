@@ -42,29 +42,24 @@
                 </div>
             </div>
         </div>
-
-
         <div class="col-9 border d-flex flex-start">
             <div class="workspace d-flex flex-row">
                 <div class="leftside d-flex flex-column h-100">
 
                     <div class="room p-3 flex-grow-1 position-relative" id="conferenceroom">
-
                         <div class="row row-cols-1 g-2 justify-content-center align-content-center h-100"
                             id="worker-container">
-
                             <div class="col" style="max-width: 220px;">
-                                <div class="card shadow-sm border-0">
+                                <div class="card shadow-sm border-0" >
                                     <div class="card-body p-2 d-flex align-items-center justify-content-between">
                                         <img src="assets/imgs/711-1728902249.jpg"
                                             class="rounded-circle object-fit-cover border" alt="Profile"
                                             style="width: 35px; height: 35px;">
 
-                                        <div class="mx-2 text-truncate text-center flex-grow-1">
+                                        <div id="textpfp" class="mx-2 text-truncate text-center flex-grow-1">
                                             <span class="fw-bold" style="font-size: 0.8rem;">Tayeb</span>
                                         </div>
-
-                                        <button
+                                        <button id="btndeletepfp"
                                             class="btn btn-danger btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
                                             style="width: 30px; height: 30px;" aria-label="Delete">
                                             <i class="bi bi-trash" style="font-size: 0.9rem;"></i>
@@ -255,6 +250,11 @@
                                 <option>Cleaning staff</option>
                             </select>
                         </div>
+                        <fieldset>
+                        <button type="button" class="btn btn-info" id="addexp">Professional experiences <i class="bi bi-building-add"></i></button>
+                        <div id="expfield">
+                        </div>
+                        </fieldset>
                         <div class="modal-footer p-0 border-0 pt-3">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" id="addBtnsave"> Save changes </button>

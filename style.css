@@ -96,7 +96,12 @@ body{
  .textv{
     display:none;
  }
-}
+ #textpfp , #btndeletepfp{
+    display: none;
+ }
+ #workspace{
+    transform: rotate(90deg);
+}}
 @media screen and (min-width: 1200px){
     .icon{
         display: none;

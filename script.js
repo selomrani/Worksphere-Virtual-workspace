@@ -145,4 +145,3 @@ addStaffButtons.forEach(button => {
 getDataFromLocalStorage()
 
 
-const deletebtns = document.getElementById("")
