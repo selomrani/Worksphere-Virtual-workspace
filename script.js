@@ -1,12 +1,4 @@
 let staff = []
-const roomOccupationMap = {
-  'conferenceroom': 'manager',
-  'reception': 'receptionist',
-  'serversroom': 'IT guy',
-  'securityroom': 'security officer',
-  'staff': 'Cleaning staff',
-  'vault': 'security officer'
-};
 
 async function fetchjson(file) {
   let response = await fetch(file)
@@ -20,6 +12,8 @@ function isValidEmail(email) {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return regex.test(email);
 }
+
+
 const addexperiences = document.getElementById("addexp")
 const expfield = document.getElementById("expfield")
 addexperiences.addEventListener("click",(e)=>{
@@ -72,7 +66,7 @@ addform.addEventListener("submit", (event) => {
       phone: phone,
       img: img,
       occupation: occupation,
-      experiences: experiences, // Added experiences
+      experiences: experiences, 
     };
     staff.push(newstaff);
     renderminicards()
@@ -98,6 +92,19 @@ function getDataFromLocalStorage() {
   }
 }
 
+function deleteStaff(email) {
+
+  const indexToDelete = staff.findIndex(member => member.email === email);
+  
+  if (indexToDelete !== -1) {
+
+    staff.splice(indexToDelete, 1); 
+    storeStaffDataToLocalStorage(); 
+    
+    renderminicards(); 
+  }
+}
+
 function renderminicards() {
   const minicardsrender = document.getElementById("minicardsrender");
   minicardsrender.innerHTML = "";
@@ -113,7 +120,7 @@ function renderminicards() {
                                     <p class="card-text text-muted mb-0">${staffMember.email}</p>
                                 </div>
                                 <div class="ms-auto d-flex flex-column gap-1">
-                                    <button type="button" class="deletebtn btn btn-danger btn-sm" ><i class="bi bi-trash"></i></button>
+                                    <button type="button" class="deletebtn btn btn-danger btn-sm" data-staff-email="${staffMember.email}"><i class="bi bi-trash"></i></button>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#modify" aria-label="Edit">
                                         <i class="bi bi-pencil-square"></i>
@@ -123,6 +130,23 @@ function renderminicards() {
                         </div>`
     minicardsrender.appendChild(cardyy)
   })
+
+
+  document.querySelectorAll(".deletebtn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const emailToDelete = e.currentTarget.getAttribute("data-staff-email");
+      deleteStaff(emailToDelete);
+    });
+  });
+};
+
+const roomOccupationMap = {
+  'conferenceroom': 'manager',
+  'reception': 'receptionist',
+  'serversroom': 'IT guy',
+  'securityroom': 'security officer',
+  'staff': 'Cleaning staff',
+  'vault': 'security officer'
 };
 
 function renderStaffListToModal(occupationType) {
