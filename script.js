@@ -94,15 +94,10 @@ function getDataFromLocalStorage() {
 
 function deleteStaff(email) {
 
-  const indexToDelete = staff.findIndex(member => member.email === email);
-  
-  if (indexToDelete !== -1) {
-
-    staff.splice(indexToDelete, 1); 
+  const deleteemail = staff.findIndex(member => member.email === email);
+    staff.splice(deleteemail, 1); 
     storeStaffDataToLocalStorage(); 
-    
     renderminicards(); 
-  }
 }
 
 function renderminicards() {
