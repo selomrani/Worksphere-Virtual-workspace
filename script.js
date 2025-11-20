@@ -8,16 +8,20 @@ async function fetchjson(file) {
 fetchjson("data.json")
 
 
-function isValidEmail(email) {
-  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return regex.test(email);
+function infosvalid(staff) {
+  const regexemail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const regexphone = /^\d{10}$/;
+  const regeximgurl = staff.img.startsWith("http://") || staff.img.startsWith("https://");
+  const lengthname = staff.fname.length >= 3 && staff.lname.length >= 3;
+  const regex = regexemail.test(staff.email) && regexphone.test(staff.phone) && regeximgurl && lengthname
+  return regex
 }
 
 
 const addexperiences = document.getElementById("addexp")
 const expfield = document.getElementById("expfield")
-addexperiences.addEventListener("click",(e)=>{
-  expfield.innerHTML+=`
+addexperiences.addEventListener("click", (e) => {
+  expfield.innerHTML += `
   <label class="form-label">Company</label>
                         <input type="text" class="form-control exp-company">
                         <label  class="form-label">From </label>
@@ -27,56 +31,65 @@ addexperiences.addEventListener("click",(e)=>{
 })
 
 
-function addnewstaff(){
-const addform = document.getElementById("addform");
-addform.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const fname = document.getElementById("fname-add").value;
-  const lname = document.getElementById("lname-add").value;
-  const email = document.getElementById("emailadd").value;
-  const phone = document.getElementById("phone-add").value;
-  const img = document.getElementById("photo-add").value;
-  const occupation = document.getElementById("occupation-add").value;
+function addnewstaff() {
+  const addform = document.getElementById("addform");
+  addform.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const fname = document.getElementById("fname-add").value;
+    const lname = document.getElementById("lname-add").value;
+    const email = document.getElementById("emailadd").value;
+    const phone = document.getElementById("phone-add").value;
+    const img = document.getElementById("photo-add").value;
+    const occupation = document.getElementById("occupation-add").value;
 
-  const companyInputs = document.querySelectorAll(".exp-company");
-  const fromInputs = document.querySelectorAll(".exp-from");
-  const toInputs = document.querySelectorAll(".exp-to");
-  const experiences = [];
+    const companyInputs = document.querySelectorAll(".exp-company");
+    const fromInputs = document.querySelectorAll(".exp-from");
+    const toInputs = document.querySelectorAll(".exp-to");
+    const experiences = [];
 
-  for (let i = 0; i < companyInputs.length; i++) {
-    const company = companyInputs[i].value.trim();
-    const from = fromInputs[i].value.trim();
-    const to = toInputs[i].value.trim();
+    for (let i = 0; i < companyInputs.length; i++) {
+      const company = companyInputs[i].value.trim();
+      const from = fromInputs[i].value.trim();
+      const to = toInputs[i].value.trim();
 
-    if (company !== '' || from !== '' || to !== '') {
+      if (company !== '' || from !== '' || to !== '') {
         experiences.push({
-            company: company,
-            from: from,
-            to: to
+          company: company,
+          from: from,
+          to: to
         });
+      }
     }
-  }
 
 
-  if (isValidEmail(email)) {
-    const newstaff = {
-      fname: fname,
-      lname: lname,
-      email: email,
-      phone: phone,
-      img: img,
-      occupation: occupation,
-      experiences: experiences, 
-    };
-    staff.push(newstaff);
-    renderminicards()
-    storeStaffDataToLocalStorage()
-  } else {
-    alert("Plese enter valid infos");
-  }
-  
-
-})};
+    if (infosvalid({ fname, lname, email, phone, img })) {
+      const newstaff = {
+        fname: fname,
+        lname: lname,
+        email: email,
+        phone: phone,
+        img: img,
+        occupation: occupation,
+        experiences: experiences,
+      };
+      staff.push(newstaff);
+      renderminicards()
+      storeStaffDataToLocalStorage()
+      addform.reset();
+      document.getElementById("fname-add").style.border = "1px solid green";
+      document.getElementById("lname-add").style.border = "1px solid green";
+      document.getElementById("emailadd").style.border = "1px solid green";
+      document.getElementById("phone-add").style.border = "1px solid green";
+      document.getElementById("photo-add").style.border = "1px solid green";
+    } else {
+      document.getElementById("fname-add").style.border = "1px solid red";
+      document.getElementById("lname-add").style.border = "1px solid red";
+      document.getElementById("emailadd").style.border = "1px solid red";
+      document.getElementById("phone-add").style.border = "1px solid red";
+      document.getElementById("photo-add").style.border = "1px solid red";
+    }
+  })
+};
 addnewstaff()
 function storeStaffDataToLocalStorage() {
   const staffLocal = JSON.stringify(staff);
@@ -93,11 +106,10 @@ function getDataFromLocalStorage() {
 }
 
 function deleteStaff(email) {
-
   const deleteemail = staff.findIndex(member => member.email === email);
-    staff.splice(deleteemail, 1); 
-    storeStaffDataToLocalStorage(); 
-    renderminicards(); 
+  staff.splice(deleteemail, 1);
+  storeStaffDataToLocalStorage();
+  renderminicards();
 }
 
 function renderminicards() {
@@ -129,7 +141,7 @@ function renderminicards() {
 
   document.querySelectorAll(".deletebtn").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      const emailToDelete = e.currentTarget.getAttribute("data-staff-email");
+      const emailToDelete = e.target.getAttribute("data-staff-email");
       deleteStaff(emailToDelete);
     });
   });
@@ -196,3 +208,7 @@ addStaffButtons.forEach(button => {
   });
 });
 getDataFromLocalStorage()
+// shostaffdetails(){
+//   const showmail = staff.findIndex(member => member.email === email);
+
+// }
