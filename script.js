@@ -25,11 +25,11 @@ const expfield = document.getElementById("expfield")
 addexperiences.addEventListener("click",(e)=>{
   expfield.innerHTML+=`
   <label class="form-label">Company</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control exp-company">
                         <label  class="form-label">From </label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control exp-from">
                         <label class="form-label">To</label>
-                        <input type="date" class="form-control">`
+                        <input type="date" class="form-control exp-to">`
 })
 
 
@@ -43,6 +43,27 @@ addform.addEventListener("submit", (event) => {
   const phone = document.getElementById("phone-add").value;
   const img = document.getElementById("photo-add").value;
   const occupation = document.getElementById("occupation-add").value;
+
+  const companyInputs = document.querySelectorAll(".exp-company");
+  const fromInputs = document.querySelectorAll(".exp-from");
+  const toInputs = document.querySelectorAll(".exp-to");
+  const experiences = [];
+
+  for (let i = 0; i < companyInputs.length; i++) {
+    const company = companyInputs[i].value.trim();
+    const from = fromInputs[i].value.trim();
+    const to = toInputs[i].value.trim();
+
+    if (company !== '' || from !== '' || to !== '') {
+        experiences.push({
+            company: company,
+            from: from,
+            to: to
+        });
+    }
+  }
+
+
   if (isValidEmail(email)) {
     const newstaff = {
       fname: fname,
@@ -51,6 +72,7 @@ addform.addEventListener("submit", (event) => {
       phone: phone,
       img: img,
       occupation: occupation,
+      experiences: experiences, // Added experiences
     };
     staff.push(newstaff);
     renderminicards()
@@ -155,5 +177,3 @@ addStaffButtons.forEach(button => {
   });
 });
 getDataFromLocalStorage()
-
-
