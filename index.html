@@ -168,42 +168,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <img src="assets/imgs/user-solid-full.svg" class="rounded-circle" alt="Profile Picture"
-                            style="width: 60px; height: 60px;">
+                    <div id="editmodalbody">
                     </div>
-                    <form id="modifyform">
-                        <div class="mb-2">
-                            <label for="fname" class="form-label">First name</label>
-                            <input type="text" class="form-control" id="fname">
-                        </div>
-                        <div class="mb-2">
-                            <label for="lname" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="lname">
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" disabled>
-                        </div>
-                        <div class="mb-2">
-                            <label for="phone" class="form-label">Phone number</label>
-                            <input type="tel" class="form-control" id="phone">
-                        </div>
-                        <div class="mb-2">
-                            <label for="photo" class="form-label">Profile picture</label><br>
-                            <input type="url" name="pfp" id="photo" class="form-control">
-                        </div>
-                        <div class="mb-2">
-                            <label for="occupation" class="form-label"> Occupation</label>
-                            <select class="form-select" id="occupation">
-                                <option>IT guy</option>
-                                <option>receptionist</option>
-                                <option>manager</option>
-                                <option>security officer</option>
-                                <option>Cleaning staff</option>
-                            </select>
-                        </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -286,8 +252,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="detailsmodal" tabindex="-1" aria-labelledby="detailsmodal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -297,18 +261,63 @@
                 </div>
                 <div class="modal-body">
                     <div id="profiledetails">
-                        
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+<div class="d-flex justify-content-center mb-3">
+    <img src="assets/imgs/user-solid-full.svg" class="rounded-circle" alt="Profile Picture"
+        style="width: 60px; height: 60px;">
+</div>
+<form id="modifyform">
+    <div class="mb-2">
+        <label for="fname" class="form-label">First name</label>
+        <input type="text" class="form-control" id="fname" value="${}">
+    </div>
+    <div class="mb-2">
+        <label for="lname" class="form-label">Last name</label>
+        <input type="text" class="form-control" id="lname" value="${}">
+    </div>
+    <div class="mb-2">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" value="${}">
+    </div>
+    <div class="mb-2">
+        <label for="phone" class="form-label">Phone number</label>
+        <input type="tel" class="form-control" id="phone" value="${}">
+    </div>
+    <div class="mb-2">
+        <label for="photo" class="form-label">Profile picture</label><br>
+        <input type="url" name="pfp" id="photo" class="form-control" value="${}">
+    </div>
+    <div class="mb-2">
+        <label for="occupation" class="form-label"> Occupation</label>
+        <select class="form-select" id="occupation" value="${}">
+            <option>IT guy</option>
+            <option>receptionist</option>
+            <option>manager</option>
+            <option>security officer</option>
+            <option>Cleaning staff</option>
+        </select>
+    </div>
+</form>

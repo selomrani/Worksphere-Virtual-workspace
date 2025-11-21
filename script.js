@@ -136,7 +136,7 @@ function renderminicards() {
                 <button type="button" class="deletebtn btn btn-danger btn-sm" data-staff-email="${staffMember.email}">
                     <i class="bi bi-trash"></i>
                 </button>
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                <button type="button" class="editbtntoggle btn btn-warning btn-sm" data-bs-toggle="modal"
                     data-bs-target="#modify" aria-label="Edit">
                     <i class="bi bi-pencil-square"></i>
                 </button>
@@ -229,7 +229,7 @@ opndetailsclick.forEach(opendetails => {
   })
 })
 function showstaffdetails(email) {
-  const staffMember= staff.find(member => member.email === email);
+  const staffMember = staff.find(member => member.email === email);
   console.log(email)
   const profiledetails = document.getElementById("profiledetails")
   profiledetails.innerHTML = `
@@ -241,13 +241,10 @@ function showstaffdetails(email) {
                                         alt="Profile Picture" style="width: 80px; height: 80px;" id="details-photo">
 
                                     <h4 class="mt-2" id="details-fullname">${staffMember.fname} ${staffMember.lname} </h4>
-
                                     <p class="text-muted mb-0" id="details-occupation">${staffMember.occupation}</p>
                                 </div>
                             </div>
-
                             <hr>
-
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="mb-3 text-primary"><i class="bi bi-person-badge me-2"></i>Contact
@@ -284,4 +281,16 @@ function showstaffdetails(email) {
                             </div>
                         </div>
                     </div>`
+}
+
+
+const editbuttons = document.querySelectorAll(".editbtntoggle")
+editbuttons.forEach(editbutton =>{
+  editbutton.addEventListener("click",(e)=>{
+
+  })
+})
+
+function editstaffdetails(){
+  
 }
