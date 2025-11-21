@@ -51,7 +51,6 @@ function addnewstaff() {
       const company = companyInputs[i].value.trim();
       const from = fromInputs[i].value.trim();
       const to = toInputs[i].value.trim();
-
       if (company !== '' || from !== '' || to !== '') {
         experiences.push({
           company: company,
@@ -122,7 +121,7 @@ function renderminicards() {
         <div class="d-flex align-items-center">
 
             <img src="${staffMember.img}" 
-                 class="opendetailsclick border border-success rounded-circle me-3" 
+                 class="opendetailsclick border border-success rounded-circle me-3 " 
                  alt="Profile Picture" 
                  style="width: 60px; height: 60px; cursor: pointer;"
                  role="button"
@@ -223,14 +222,66 @@ getDataFromLocalStorage()
 
 
 
-
-function shostaffdetails() {
-  // const showmail = staff.findIndex(member => member.email === email);
   const opndetailsclick = document.querySelectorAll(".opendetailsclick")
   opndetailsclick.forEach(opendetails => {
     opendetails.addEventListener("click", (e) => {
-      console.log("1")
+      const showemail = e.target.getAttribute("data-staff-email")
+      showstaffdetails(showemail)
     })
   })
+function showstaffdetails(email) {
+const showemail = staff.findIndex(member => member.email === email);
+const profiledetails = document.getElementById("profiledetails")
+profiledetails.innerHTML = `
+<div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-12 text-center mb-3">
+                                    <img src="${staffMember.img}"
+                                        class="rounded-circle object-fit-cover border border-secondary"
+                                        alt="Profile Picture" style="width: 80px; height: 80px;" id="details-photo">
+
+                                    <h4 class="mt-2" id="details-fullname">${staffMember.fname} ${staffMember.lname} </h4>
+
+                                    <p class="text-muted mb-0" id="details-occupation">${staffMember.occupation}</p>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="mb-3 text-primary"><i class="bi bi-person-badge me-2"></i>Contact
+                                        Information</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold"><i class="bi bi-person me-2"></i>First Name:</span>
+                                            <span id="details-fname">Soufyane</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold"><i class="bi bi-person me-2"></i>Last Name:</span>
+                                            <span id="details-lname">El omrani</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold"><i class="bi bi-at me-2"></i>Email:</span>
+                                            <span id="details-email">elomranisoufyan@gmail.com</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold"><i class="bi bi-telephone-fill me-2"></i>Phone:</span>
+                                            <span id="details-phone">+212 602 317 825</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="mb-3 text-primary"><i class="bi bi-briefcase-fill me-2"></i>Professional
+                                        Experience</h5>
+                                    <div id="details-experience-container">
+                                        <p class="text-muted fst-italic" id="no-exp-message">Youcode</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
 }
-shostaffdetails()
