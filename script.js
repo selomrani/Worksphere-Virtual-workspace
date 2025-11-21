@@ -126,8 +126,7 @@ function renderminicards() {
                  style="width: 60px; height: 60px; cursor: pointer;"
                  role="button"
                  data-bs-toggle="modal" 
-                 data-bs-target="#detailsmodal">
-            
+                 data-bs-target="#detailsmodal" data-staff-email="${staffMember.email}">   
             <div>
                 <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
                 <p class="card-text text-muted mb-0">${staffMember.email}</p>
@@ -151,8 +150,8 @@ function renderminicards() {
 
   document.querySelectorAll(".deletebtn").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      const emailToDelete = e.target.getAttribute("data-staff-email");
-      deleteStaff(emailToDelete);
+      const staffemaildlt = e.target.getAttribute("data-staff-email");
+      deleteStaff(staffemaildlt);
     });
   });
 };
@@ -222,17 +221,18 @@ getDataFromLocalStorage()
 
 
 
-  const opndetailsclick = document.querySelectorAll(".opendetailsclick")
-  opndetailsclick.forEach(opendetails => {
-    opendetails.addEventListener("click", (e) => {
-      const showemail = e.target.getAttribute("data-staff-email")
-      showstaffdetails(showemail)
-    })
+const opndetailsclick = document.querySelectorAll(".opendetailsclick")
+opndetailsclick.forEach(opendetails => {
+  opendetails.addEventListener("click", (e) => {
+    const showemail = e.target.getAttribute("data-staff-email")
+    showstaffdetails(showemail)
   })
+})
 function showstaffdetails(email) {
-const showemail = staff.findIndex(member => member.email === email);
-const profiledetails = document.getElementById("profiledetails")
-profiledetails.innerHTML = `
+  const staffMember= staff.find(member => member.email === email);
+  console.log(email)
+  const profiledetails = document.getElementById("profiledetails")
+  profiledetails.innerHTML = `
 <div class="container-fluid p-0">
                             <div class="row">
                                 <div class="col-12 text-center mb-3">
@@ -255,19 +255,19 @@ profiledetails.innerHTML = `
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span class="fw-bold"><i class="bi bi-person me-2"></i>First Name:</span>
-                                            <span id="details-fname">Soufyane</span>
+                                            <span id="details-fname">${staffMember.fname}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span class="fw-bold"><i class="bi bi-person me-2"></i>Last Name:</span>
-                                            <span id="details-lname">El omrani</span>
+                                            <span id="details-lname">${staffMember.lname}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span class="fw-bold"><i class="bi bi-at me-2"></i>Email:</span>
-                                            <span id="details-email">elomranisoufyan@gmail.com</span>
+                                            <span id="details-email">${staffMember.email}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span class="fw-bold"><i class="bi bi-telephone-fill me-2"></i>Phone:</span>
-                                            <span id="details-phone">+212 602 317 825</span>
+                                            <span id="details-phone">${staffMember.phone}</span>
                                         </li>
                                     </ul>
                                 </div>
