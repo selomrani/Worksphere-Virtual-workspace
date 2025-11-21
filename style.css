@@ -1,0 +1,109 @@
+body{
+    /* background-color: rgb(216, 212, 212); */
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    width: 100vw;
+}
+.workspace{
+    background-image: url(assets/imgs/plan-69159a65c5684763515973.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+}
+.leftside {
+    width: 38%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.centerhallway {
+    width: 24%;
+    height: 100%;
+    opacity: 30%;
+}
+#conferenceroom{
+    width: 100%; 
+    height: 34%;
+    /* background-color: aqua; */
+    text-align: center;
+    /* opacity: 30%; */
+}
+#reception{
+    width : 100%;
+    height: 68%;
+    /* background-color: blueviolet; */
+    text-align: center;
+    /* opacity: 30% */
+}
+
+#hallway1{
+    width: 16.5%;
+    height: 99%;
+    /* background-color: rgb(45, 0, 31); */
+    text-align: center;
+    /* opacity: 80% */
+}
+#serversroom{
+    width: 47%;
+    height: 100%;
+    /* background-color: chartreuse; */
+    text-align: center;
+    /* opacity: 30% */
+}
+.rightside {
+    width: 43%;
+    
+}
+.uppercolumnright{
+    width : 110%;
+    height: 34%;
+}
+#securityroom{
+    width: 50%;
+    height: 100%;
+    /* background-color: rgb(0, 0, 0); */
+    text-align: center;
+    /* opacity: 30% */
+}
+#hallway2{
+    width : 105%;
+    height : 32%;
+    /* background-color: rgb(18, 189, 163); */
+    text-align: center;
+    opacity: 40%;
+}
+.bottomsideright{
+    width : 110%;
+    height: 34%;
+}
+#staff{
+    width: 48%;
+    height: 100%;
+    /* background-color: rgb(7, 46, 222); */
+    text-align: center;
+    /* opacity: 30% */
+}
+#vault{
+    width: 52%;
+    height: 100%;
+    /* background-color: rgb(231, 219, 219); */
+    text-align: center;
+}
+@media screen and (max-width: 768px) {
+ .textv{
+    display:none;
+ }
+ #textpfp , #btndeletepfp{
+    display: none;
+ }
+ #workspace{
+    transform: rotate(90deg);
+}}
+@media screen and (min-width: 1200px){
+    .icon{
+        display: none;
+    }
+}
