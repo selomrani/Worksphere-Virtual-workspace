@@ -118,23 +118,34 @@ function renderminicards() {
   staff.forEach(staffMember => {
     const cardyy = document.createElement("div");
     cardyy.innerHTML = `<div class="card my-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <img src="${staffMember.img}" class="border border-success rounded-circle me-3"
-                                    alt="Profile Picture" style="width: 60px; height: 60px;">
-                                <div>
-                                    <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
-                                    <p class="card-text text-muted mb-0">${staffMember.email}</p>
-                                </div>
-                                <div class="ms-auto d-flex flex-column gap-1">
-                                    <button type="button" class="deletebtn btn btn-danger btn-sm" data-staff-email="${staffMember.email}"><i class="bi bi-trash"></i></button>
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#modify" aria-label="Edit">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>`
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+
+            <img src="${staffMember.img}" 
+                 class="opendetailsclick border border-success rounded-circle me-3" 
+                 alt="Profile Picture" 
+                 style="width: 60px; height: 60px; cursor: pointer;"
+                 role="button"
+                 data-bs-toggle="modal" 
+                 data-bs-target="#detailsmodal">
+            
+            <div>
+                <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
+                <p class="card-text text-muted mb-0">${staffMember.email}</p>
+            </div>
+            
+            <div class="ms-auto d-flex flex-column gap-1">
+                <button type="button" class="deletebtn btn btn-danger btn-sm" data-staff-email="${staffMember.email}">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#modify" aria-label="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>`
     minicardsrender.appendChild(cardyy)
   })
 
@@ -177,14 +188,14 @@ function renderStaffListToModal(occupationType) {
       <div class="card my-3">
         <div class="card-body">
           <div class="d-flex align-items-center">
-            <img src="assets/imgs/user-solid-full.svg" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px;">
+            <img src="${staffMember.img}" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px;">
             <div>
               <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
               <p class="card-text text-muted mb-0">${staffMember.email}</p>
             </div>
             <div class="ms-auto d-flex flex-column gap-1">
               <button type="button" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i></button>
-              <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modify" aria-label="Edit"><i class="bi bi-pencil-square"></i></button>
+              <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modify" aria-label="Edit"><i class="bi bi-info-lg"></i></button>
             </div>
           </div>
         </div>
@@ -208,7 +219,18 @@ addStaffButtons.forEach(button => {
   });
 });
 getDataFromLocalStorage()
-// shostaffdetails(){
-//   const showmail = staff.findIndex(member => member.email === email);
 
-// }
+
+
+
+
+function shostaffdetails() {
+  // const showmail = staff.findIndex(member => member.email === email);
+  const opndetailsclick = document.querySelectorAll(".opendetailsclick")
+  opndetailsclick.forEach(opendetails => {
+    opendetails.addEventListener("click", (e) => {
+      console.log("1")
+    })
+  })
+}
+shostaffdetails()

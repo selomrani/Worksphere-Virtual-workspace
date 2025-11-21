@@ -16,7 +16,8 @@
         <div class="col-3 border border-primary vh-100 text-center" id="sidebar">
             <button id="togglesidebar" class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                <div class="textv">Manage Workspace </div> <div class="icon"><i class="bi bi-person-lines-fill"></i></div>
+                <div class="textv">Manage Workspace </div>
+                <div class="icon"><i class="bi bi-person-lines-fill"></i></div>
             </button>
             <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
                 aria-labelledby="staticBackdropLabel">
@@ -50,7 +51,7 @@
                         <div class="row row-cols-1 g-2 justify-content-center align-content-center h-100"
                             id="worker-container">
                             <div class="col" style="max-width: 220px;">
-                                <div class="card shadow-sm border-0" >
+                                <div class="card shadow-sm border-0">
                                     <div class="card-body p-2 d-flex align-items-center justify-content-between">
                                         <img src="assets/imgs/711-1728902249.jpg"
                                             class="rounded-circle object-fit-cover border" alt="Profile"
@@ -99,7 +100,8 @@
 
                     <div class="room position-relative" id="reception">
                         <div class="position-absolute bottom-0 start-50 translate-middle-x p-2">
-                            <button id="add-reception-staff-btn" type="button" class="add-staff-btn btn btn-success btn-sm" data-room-id="reception"
+                            <button id="add-reception-staff-btn" type="button"
+                                class="add-staff-btn btn btn-success btn-sm" data-room-id="reception"
                                 data-bs-toggle="modal" data-bs-target="#addtoroom">
                                 <i class="bi bi-person-plus"></i> Add Staff
                             </button>
@@ -251,9 +253,10 @@
                             </select>
                         </div>
                         <fieldset>
-                        <button type="button" class="btn btn-info" id="addexp">Professional experiences <i class="bi bi-building-add"></i></button>
-                        <div id="expfield">
-                        </div>
+                            <button type="button" class="btn btn-info" id="addexp">Professional experiences <i
+                                    class="bi bi-building-add"></i></button>
+                            <div id="expfield">
+                            </div>
                         </fieldset>
                         <div class="modal-footer p-0 border-0 pt-3">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -284,6 +287,24 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="detailsmodal" tabindex="-1" aria-labelledby="detailsmodal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">User infos</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    hoho
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
