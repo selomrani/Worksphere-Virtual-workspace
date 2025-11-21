@@ -120,7 +120,7 @@ function renderminicards() {
     cardyy.innerHTML = `<div class="card my-3">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <img src="assets/imgs/user-solid-full.svg" class="rounded-circle me-3"
+                                <img src="${staffMember.img}" class="border border-success rounded-circle me-3"
                                     alt="Profile Picture" style="width: 60px; height: 60px;">
                                 <div>
                                     <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
