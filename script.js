@@ -1,5 +1,4 @@
 let staff = []
-
 async function fetchjson(file) {
   let response = await fetch(file)
   let data = await response.json()
@@ -101,6 +100,7 @@ function getDataFromLocalStorage() {
     const storedStaff = JSON.parse(staffLocal);
     staff = storedStaff;
     renderminicards();
+    renderStaffInRoom();
   }
 }
 
@@ -109,12 +109,20 @@ function deleteStaff(email) {
   staff.splice(deleteemail, 1);
   storeStaffDataToLocalStorage();
   renderminicards();
+  renderStaffInRoom();
 }
 
 function renderminicards() {
   const minicardsrender = document.getElementById("minicardsrender");
   minicardsrender.innerHTML = "";
-  staff.forEach(staffMember => {
+  
+  const allAssignedEmails = Object.values(roomArrayMap).flat();
+
+  const unassignedStaff = staff.filter(staffMember => 
+      !allAssignedEmails.includes(staffMember.email)
+  );
+  
+  unassignedStaff.forEach(staffMember => {
     const cardyy = document.createElement("div");
     cardyy.innerHTML = `<div class="card my-3">
     <div class="card-body">
@@ -137,7 +145,7 @@ function renderminicards() {
                     <i class="bi bi-trash"></i>
                 </button>
                 <button type="button" class="editbtntoggle btn btn-warning btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modify" aria-label="Edit">
+                    data-bs-target="#modify" aria-label="Edit" data-staff-email="${staffMember.email}">
                     <i class="bi bi-pencil-square"></i>
                 </button>
             </div>
@@ -155,71 +163,6 @@ function renderminicards() {
     });
   });
 };
-
-const roomOccupationMap = {
-  'conferenceroom': 'manager',
-  'reception': 'receptionist',
-  'serversroom': 'IT guy',
-  'securityroom': 'security officer',
-  'staff': 'Cleaning staff',
-  'vault': 'security officer'
-};
-
-function renderStaffListToModal(occupationType) {
-  const stafflist = document.getElementById('stafflist');
-  const modalTitle = document.getElementById('addtoroomLabel');
-  if (modalTitle) {
-    modalTitle.textContent = `Available staff`;
-  }
-
-  stafflist.innerHTML = '';
-
-  const unassignedStaff = staff.filter(staffMember => staffMember.occupation === occupationType);
-
-  if (unassignedStaff.length === 0) {
-    stafflist.innerHTML = `<p class="text-center text-muted">No unassigned ${occupationType} staff available.</p>`;
-    return;
-  }
-  unassignedStaff.forEach(staffMember => {
-    const profile = document.createElement('div');
-    profile.innerHTML = `
-      <div class="card my-3">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <img src="${staffMember.img}" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px;">
-            <div>
-              <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
-              <p class="card-text text-muted mb-0">${staffMember.email}</p>
-            </div>
-            <div class="ms-auto d-flex flex-column gap-1">
-              <button type="button" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i></button>
-              <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modify" aria-label="Edit"><i class="bi bi-info-lg"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    stafflist.appendChild(profile);
-  });
-}
-
-const addStaffButtons = document.querySelectorAll(".add-staff-btn");
-
-addStaffButtons.forEach(button => {
-  button.addEventListener('click', function () {
-    const roomId = this.getAttribute('data-room-id');
-    const requiredOccupation = roomOccupationMap[roomId];
-    if (requiredOccupation) {
-      renderStaffListToModal(requiredOccupation);
-    } else {
-      console.log("No room with such id was found")
-    }
-  });
-});
-getDataFromLocalStorage()
-
-
-
 
 const opndetailsclick = document.querySelectorAll(".opendetailsclick")
 opndetailsclick.forEach(opendetails => {
@@ -287,10 +230,213 @@ function showstaffdetails(email) {
 const editbuttons = document.querySelectorAll(".editbtntoggle")
 editbuttons.forEach(editbutton =>{
   editbutton.addEventListener("click",(e)=>{
+    const editemail = e.target.getAttribute("data-staff-email")
+    const staffMember = staff.find(member => member.email === editemail);
+     console.log(staffMember)
+    const editmodalbody = document.getElementById("editmodalbody")
+  editmodalbody.innerHTML = `
+  <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-12 text-center mb-3">
+                                    <img src="${staffMember.img}"
+                                        class="rounded-circle object-fit-cover border border-secondary"
+                                        alt="Profile Picture" style="width: 80px; height: 80px;" id="details-photo">
 
+                                    <h4 class="mt-2" id="details-fullname">${staffMember.fname} ${staffMember.lname} </h4>
+                                    <p class="text-muted mb-0" id="details-occupation">${staffMember.occupation}</p>            
+                                </div>`
   })
 })
 
-function editstaffdetails(){
-  
+
+
+let conferenceRoomStaff = [];
+let receptionStaff = [];
+let serversRoomStaff = [];
+let securityRoomStaff = [];
+let staffRoomStaff = [];
+let vaultStaff = [];
+
+const roomArrayMap = {
+    'conferenceroom': conferenceRoomStaff,
+    'reception': receptionStaff,
+    'serversroom': serversRoomStaff,
+    'securityroom': securityRoomStaff,
+    'staff': staffRoomStaff,
+    'vault': vaultStaff
+};
+
+function assignStaffToRoom(roomId, staffEmail) {
+    const targetArray = roomArrayMap[roomId];
+    
+    for (const key in roomArrayMap) {
+        const currentArray = roomArrayMap[key];
+        const index = currentArray.indexOf(staffEmail);
+        if (index > -1) {
+            currentArray.splice(index, 1);
+        }
+    }
+    
+    if (!targetArray.includes(staffEmail)) {
+        targetArray.push(staffEmail);
+    }
+
+    renderStaffInRoom();
+    renderminicards();
+    
+    const modalElement = document.getElementById('addtoroom');
+    if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.style.display = 'none';
+        document.body.classList.remove('modal-open'); 
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    }
 }
+
+function removeStaffFromRoom(roomId, staffEmail) {
+    const targetArray = roomArrayMap[roomId];
+    const index = targetArray.indexOf(staffEmail);
+    
+    if (index > -1) {
+        targetArray.splice(index, 1); 
+        
+        renderStaffInRoom();
+        renderminicards();
+    }
+}
+
+function renderStaffInRoom() {
+    document.querySelectorAll('.room[id]').forEach(room => {
+        const staffContainer = room.querySelector('.row-cols-1.g-2');
+        if (staffContainer) {
+            staffContainer.innerHTML = '';
+        }
+    });
+
+    for (const roomId in roomArrayMap) {
+        const assignedEmails = roomArrayMap[roomId];
+        const roomElement = document.getElementById(roomId);
+        if (!roomElement) continue;
+
+        let staffContainer = roomElement.querySelector('.row-cols-1.g-2');
+        if (!staffContainer) {
+            staffContainer = document.createElement('div');
+            staffContainer.className = 'row row-cols-1 g-2 justify-content-center align-content-center h-100';
+            roomElement.prepend(staffContainer);
+        }
+
+        assignedEmails.forEach(email => {
+            const staffMember = staff.find(member => member.email === email);
+            if (staffMember) {
+                const staffCard = document.createElement('div');
+                staffCard.className = 'col staff-in-room-card';
+                staffCard.style.maxWidth = '220px';
+
+                staffCard.innerHTML = `
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-2 d-flex align-items-center justify-content-between">
+                            <img src="${staffMember.img}"
+                                class="rounded-circle object-fit-cover border" alt="Profile"
+                                style="width: 35px; height: 35px;">
+                            <div class="mx-2 text-truncate text-center flex-grow-1">
+                                <span class="fw-bold" style="font-size: 0.8rem;">${staffMember.fname}</span>
+                            </div>
+                            <button class="btn-remove-staff btn btn-danger btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                style="width: 30px; height: 30px;" aria-label="Remove" data-staff-email="${email}" data-room-id="${roomId}">
+                                <i class="bi bi-trash" style="font-size: 0.9rem;"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                staffContainer.appendChild(staffCard);
+            }
+        });
+    }
+
+    document.querySelectorAll('.btn-remove-staff').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const emailToRemove = e.currentTarget.getAttribute('data-staff-email');
+            const roomId = e.currentTarget.getAttribute('data-room-id');
+            removeStaffFromRoom(roomId, emailToRemove);
+        });
+    });
+}
+
+function renderStaffListToModal(roomId, occupationType) {
+    const stafflist = document.getElementById('stafflist');
+    const modalTitle = document.getElementById('addtoroomLabel');
+    modalTitle.textContent = `Assign ${occupationType} to ${roomId}`;
+
+    stafflist.innerHTML = '';
+
+    const assignedInRoom = roomArrayMap[roomId];
+    
+    const eligibleStaff = staff.filter(staffMember => 
+        (staffMember.occupation === occupationType || staffMember.occupation === 'coach') && 
+        !assignedInRoom.includes(staffMember.email)
+    );
+
+    if (eligibleStaff.length === 0) {
+        stafflist.innerHTML = `<p class="text-center text-muted">No eligible staff available to add.</p>`;
+        return;
+    }
+    
+    eligibleStaff.forEach(staffMember => {
+        const profile = document.createElement('div');
+        profile.innerHTML = `
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <img src="${staffMember.img}" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px;">
+                        <div>
+                            <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
+                            <p class="card-text text-muted mb-0">${staffMember.email}</p>
+                        </div>
+                        <div class="ms-auto d-flex flex-column gap-1">
+                            <button type="button" class="btn-assign-staff btn btn-success btn-sm" data-staff-email="${staffMember.email}" data-room-id="${roomId}">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        stafflist.appendChild(profile);
+    });
+
+    document.querySelectorAll('.btn-assign-staff').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const emailToAssign = e.currentTarget.getAttribute('data-staff-email');
+            const targetRoomId = e.currentTarget.getAttribute('data-room-id');
+            assignStaffToRoom(targetRoomId, emailToAssign);
+        });
+    });
+}
+
+
+const roomOccupationMap = {
+    'conferenceroom': 'coach', 
+    'reception': 'receptionist',
+    'serversroom': 'IT guy',
+    'securityroom': 'security officer',
+    'staff': 'Cleaning staff',
+    'vault': 'security officer'
+};
+
+const addStaffButtons = document.querySelectorAll(".add-staff-btn");
+
+addStaffButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        const roomId = this.getAttribute('data-room-id');
+        const requiredOccupation = roomOccupationMap[roomId];
+        if (requiredOccupation) {
+            renderStaffListToModal(roomId, requiredOccupation); 
+        } else {
+            console.log("No room with such id was found");
+        }
+    });
+});
+getDataFromLocalStorage();
