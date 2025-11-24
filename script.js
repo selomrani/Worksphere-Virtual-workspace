@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     getDataFromLocalStorage();
 })
 let staff = []
+    const array_conferenceroom = []
+    const array_vault = []
+    const array_serversroom = []
+    const array_securityroom = []
+    const array_receptionroom = []
+    const array_staffroom = []
 async function fetchjson(file) {
     let response = await fetch(file)
     let data = await response.json()
@@ -160,14 +166,14 @@ function renderminicards() {
         });
     });
     const editbuttons = document.querySelectorAll(".editbtntoggle")
-editbuttons.forEach(editbutton => {
-    editbutton.addEventListener("click", (e) => {
-        const staffElementWithEmail = e.target.closest('[data-staff-email]');
-        const editemail = staffElementWithEmail.getAttribute("data-staff-email")
-        const staffMember = staff.find(member => member.email === editemail);
-        console.log(staffMember)
-        const editinfosbody = document.getElementById("editmodalbody")
-        editinfosbody.innerHTML = `<form name="editform">
+    editbuttons.forEach(editbutton => {
+        editbutton.addEventListener("click", (e) => {
+            const currentstaff = e.target.closest('[data-staff-email]');
+            const editemail = currentstaff.getAttribute("data-staff-email")
+            const staffMember = staff.find(member => member.email === editemail);
+            console.log(staffMember)
+            const editinfosbody = document.getElementById("editmodalbody")
+            editinfosbody.innerHTML = `<form name="editform">
                             <div class="mb-2">
                                 <label for="name-edit" class="form-label">First name</label>
                                 <input type="text" class="form-control" id="fname-edit" value="${staffMember.fname}">
@@ -200,12 +206,12 @@ editbuttons.forEach(editbutton => {
                             </div>
                             <div class="mb-2">
                                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-primary" id="editBtnsave">Save changes</button>
                                 </div>
                             </form>
                             `
+        });
     });
-});
 };
 function showstaffdetails(email) {
     const staffMember = staff.find(member => member.email === email);
@@ -254,14 +260,63 @@ function showstaffdetails(email) {
                                     <h5 class="mb-3 text-primary"><i class="bi bi-briefcase-fill me-2"></i>Professional
                                         Experience</h5>
                                     <div id="details-experience-container">
-                                        <p class="text-muted fst-italic" id="no-exp-message">Youcode</p>
+                                        <p class="text-muted fst-italic" id="no-exp-message"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>`
+
 }
 
 
+function assignstafftoroom() {
+    const addnewstaffBtns = document.querySelectorAll(".add-staff-btn")
+    
+    addnewstaffBtns.forEach(addstaffBtn => {
+        addstaffBtn.addEventListener("click", () => {
+            const availablestafflist = document.getElementById("availablestafflist")
+            
+            availablestafflist.innerHTML = `
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 text-center mb-3">
+                            <h4 class="mt-2">Available Staff</h4>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="list-group list-group-flush" id="available-staff-list">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `
+            const availableList = document.getElementById("available-staff-list");
+            availableList.innerHTML = ''; 
 
-// editstaffinfosfrommodal()
+                   staff.forEach(staffMember => {
+                availableList.innerHTML += `
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="${staffMember.img}" class="rounded-circle object-fit-cover me-2" style="width: 30px; height: 30px;" alt="Profile">
+                            <span>${staffMember.fname} ${staffMember.lname} (${staffMember.occupation})</span>
+                        </div>
+                        <input class="form-check-input" type="checkbox" value="${staffMember.email}" data-staff-email="${staffMember.email}">
+                    </li>
+                `;
+            });
+        })
+    })
+
+}
+
+assignstafftoroom();
+
+function renderavailablestafftoassign() {
+
+}
+function editstaffinfos() {
+    
+}
