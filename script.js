@@ -153,6 +153,13 @@ function renderminicards() {
     </div>
 </div>`
     minicardsrender.appendChild(cardyy)
+    const opndetailsclick = document.querySelectorAll(".opendetailsclick")
+opndetailsclick.forEach(opendetails => {
+  opendetails.addEventListener("click", (e) => {
+    const showemail = e.target.getAttribute("data-staff-email")
+    showstaffdetails(showemail)
+  })
+})
   })
 
 
@@ -164,13 +171,7 @@ function renderminicards() {
   });
 };
 
-const opndetailsclick = document.querySelectorAll(".opendetailsclick")
-opndetailsclick.forEach(opendetails => {
-  opendetails.addEventListener("click", (e) => {
-    const showemail = e.target.getAttribute("data-staff-email")
-    showstaffdetails(showemail)
-  })
-})
+
 function showstaffdetails(email) {
   const staffMember = staff.find(member => member.email === email);
   console.log(email)
