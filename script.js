@@ -1,8 +1,10 @@
+document.addEventListener("DOMContentLoaded", () => {
+    getDataFromLocalStorage();
+})
 let staff = []
 async function fetchjson(file) {
     let response = await fetch(file)
     let data = await response.json()
-    console.log(data)
 }
 fetchjson("data.json")
 
@@ -137,7 +139,7 @@ function renderminicards() {
                     <i class="bi bi-trash"></i>
                 </button>
                 <button type="button" class="editbtntoggle btn btn-warning btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modify" aria-label="Edit" data-staff-email="${staffMember.email}">
+                    data-bs-target="#editinfos" aria-label="Edit" data-staff-email="${staffMember.email}">
                     <i class="bi bi-pencil-square"></i>
                 </button>
             </div>
@@ -153,8 +155,6 @@ function renderminicards() {
             })
         })
     })
-
-
     document.querySelectorAll(".deletebtn").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const staffemaildlt = e.target.getAttribute("data-staff-email");
@@ -162,8 +162,6 @@ function renderminicards() {
         });
     });
 };
-
-
 function showstaffdetails(email) {
     const staffMember = staff.find(member => member.email === email);
     console.log(email)
@@ -219,48 +217,15 @@ function showstaffdetails(email) {
                     </div>`
 }
 
-
 const editbuttons = document.querySelectorAll(".editbtntoggle")
 editbuttons.forEach(editbutton => {
     editbutton.addEventListener("click", (e) => {
         const editemail = e.target.getAttribute("data-staff-email")
         const staffMember = staff.find(member => member.email === editemail);
         console.log(staffMember)
-        const editmodalbody = document.getElementById("editmodalbody")
-        editmodalbody.innerHTML = `
-  <div class="container-fluid p-0">
-                            <div class="row">
-                                <div class="col-12 text-center mb-3">
-                                    <img src="${staffMember.img}"
-                                        class="rounded-circle object-fit-cover border border-secondary"
-                                        alt="Profile Picture" style="width: 80px; height: 80px;" id="details-photo">
+        const editinfosbody = document.getElementById("editmodalbody")
+        editinfosbody.innerHTML = `` 
+    }); 
+}); 
 
-                                    <h4 class="mt-2" id="details-fullname">${staffMember.fname} ${staffMember.lname} </h4>
-                                    <p class="text-muted mb-0" id="details-occupation">${staffMember.occupation}</p>            
-                                </div>`
-    })
-})
-
-
-const roomOccupationMap = {
-    'conferenceroom': 'coach',
-    'reception': 'receptionist',
-    'serversroom': 'IT guy',
-    'securityroom': 'security officer',
-    'staff': 'Cleaning staff',
-    'vault': 'security officer'
-};
-
-const addStaffButtons = document.querySelectorAll(".add-staff-btn");
-addStaffButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        const roomId = this.getAttribute('data-room-id');
-        const requiredOccupation = roomOccupationMap[roomId];
-        if (requiredOccupation) {
-            console.log(`Add staff button clicked for room: ${roomId} with occupation: ${requiredOccupation}`);
-        } else {
-            console.log("No room with such id was found");
-        }
-    });
-});
-getDataFromLocalStorage();
+// editstaffinfosfrommodal()
