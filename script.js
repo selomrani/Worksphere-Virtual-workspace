@@ -30,8 +30,6 @@ addexperiences.addEventListener("click", (e) => {
                         <label class="form-label">To</label>
                         <input type="date" class="form-control exp-to">`
 })
-
-
 function addnewstaff() {
     const addform = document.getElementById("addform");
     addform.addEventListener("submit", (event) => {
@@ -161,6 +159,53 @@ function renderminicards() {
             deleteStaff(staffemaildlt);
         });
     });
+    const editbuttons = document.querySelectorAll(".editbtntoggle")
+editbuttons.forEach(editbutton => {
+    editbutton.addEventListener("click", (e) => {
+        const staffElementWithEmail = e.target.closest('[data-staff-email]');
+        const editemail = staffElementWithEmail.getAttribute("data-staff-email")
+        const staffMember = staff.find(member => member.email === editemail);
+        console.log(staffMember)
+        const editinfosbody = document.getElementById("editmodalbody")
+        editinfosbody.innerHTML = `<form name="editform">
+                            <div class="mb-2">
+                                <label for="name-edit" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="fname-edit" value="${staffMember.fname}">
+                            </div>
+                            <div class="mb-2"> 
+                                <label for="lname-edit" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="lname-edit" value="${staffMember.lname}">
+                            </div>
+                            <div class="mb-2">
+                                <label for="email-edit" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email-edit" value="${staffMember.email}">
+                            </div>
+                            <div class="mb-2">
+                                <label for="phone-edit" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone-edit" value="${staffMember.phone}">
+                            </div>
+                            <div class="mb-2">
+                                <label for="occupation-edit" class="form-label"> Occupation</label>
+                                <select class="form-select" id="occupation-edit" value="${staffMember.occupation}">
+                                    <option>IT guy</option>
+                                    <option>receptionist</option>
+                                    <option>manager</option>
+                                    <option>security officer</option>
+                                    <option>Cleaning staff</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="img-edit" class="form-label">Image</label>
+                                <input type="url" class="form-control" id="img-edit" value="${staffMember.img}">
+                            </div>
+                            <div class="mb-2">
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                            `
+    });
+});
 };
 function showstaffdetails(email) {
     const staffMember = staff.find(member => member.email === email);
@@ -217,15 +262,6 @@ function showstaffdetails(email) {
                     </div>`
 }
 
-const editbuttons = document.querySelectorAll(".editbtntoggle")
-editbuttons.forEach(editbutton => {
-    editbutton.addEventListener("click", (e) => {
-        const editemail = e.target.getAttribute("data-staff-email")
-        const staffMember = staff.find(member => member.email === editemail);
-        console.log(staffMember)
-        const editinfosbody = document.getElementById("editmodalbody")
-        editinfosbody.innerHTML = `` 
-    }); 
-}); 
+
 
 // editstaffinfosfrommodal()
