@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 let staff = []
 
-// Updated room structure using an object for easy lookup by HTML ID
 let rooms = {
     "conferenceroom": [],
     "vault": [],
@@ -125,6 +124,7 @@ function getRoomDataFromLocalStorage() {
     const roomsLocal = localStorage.getItem("roomData");
     if (roomsLocal) {
         rooms = JSON.parse(roomsLocal);
+        renderRoomsStaff();
     }
 }
 
@@ -367,7 +367,7 @@ function assignstafftoroom() {
                         renderminicards();
                         
                         e.currentTarget.closest('.staff-assignment-card').remove();
-                        // renderrooms(); 
+                        renderRoomsStaff(); 
                         console.log(currentTargetRoomId , rooms[currentTargetRoomId])
                     }
                 });
@@ -376,6 +376,65 @@ function assignstafftoroom() {
     });
 }
 assignstafftoroom();
+
+
+function renderStaffForSingleRoom(renderContainer, staffArray, roomId) {
+    
+    renderContainer.innerHTML = "";
+
+    staffArray.forEach(staffMember => {
+        
+        const staffCardCol = document.createElement("div");
+        staffCardCol.className = "col";
+        staffCardCol.style.maxWidth = "220px";
+        staffCardCol.setAttribute("data-staff-email", staffMember.email);
+        
+        const cardHTML = `
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-2 d-flex align-items-center justify-content-between">
+                    <img src="${staffMember.img}"
+                        class="rounded-circle object-fit-cover border" alt="Profile"
+                        style="width: 35px; height: 35px;">
+                    <div class="mx-2 text-truncate flex-grow-1 d-flex flex-column text-center">
+                        <span class="fw-bold" style="font-size: 0.8rem;">${staffMember.fname}</span>
+                        <span class="text-muted"
+                            style="font-size: 0.65rem; line-height: 1.2;">${staffMember.occupation}</span>
+                    </div>
+                    <button class="btn btn-danger btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                        style="width: 30px; height: 30px;" aria-label="Delete" data-staff-email="${staffMember.email}" data-room-id="${roomId}">
+                        <i class="bi bi-trash" style="font-size: 0.9rem;"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        staffCardCol.innerHTML = cardHTML;
+        renderContainer.appendChild(staffCardCol);
+    });
+}
+
+
+function renderRoomsStaff() {
+    const renderContainers = document.querySelectorAll(".renderRoom");
+    
+    renderContainers.forEach(renderContainer => {
+        const parentRoom = renderContainer.closest(".room");
+        if (!parentRoom) return;
+        
+        const roomId = parentRoom.id;
+        
+        if (rooms[roomId] && rooms[roomId].length > 0) {
+            
+            const staffArray = rooms[roomId];
+            
+            renderStaffForSingleRoom(renderContainer, staffArray, roomId);
+
+        } else if (rooms[roomId]) {
+            renderContainer.innerHTML = "";
+        }
+    });
+}
+
 
 function editstaffinfos() {
     
