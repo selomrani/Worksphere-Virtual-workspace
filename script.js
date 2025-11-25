@@ -1,13 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
     getDataFromLocalStorage();
+    getRoomDataFromLocalStorage();
 })
 let staff = []
-    const array_conferenceroom = []
-    const array_vault = []
-    const array_serversroom = []
-    const array_securityroom = []
-    const array_receptionroom = []
-    const array_staffroom = []
+
+// Updated room structure using an object for easy lookup by HTML ID
+let rooms = {
+    "conferenceroom": [],
+    "vault": [],
+    "serversroom": [],
+    "securityroom": [],
+    "reception": [],
+    "staff": []
+};
+
 async function fetchjson(file) {
     let response = await fetch(file)
     let data = await response.json()
@@ -95,6 +101,7 @@ function addnewstaff() {
     })
 };
 addnewstaff()
+
 function storeStaffDataToLocalStorage() {
     const staffLocal = JSON.stringify(staff);
     localStorage.setItem("staffData", staffLocal);
@@ -106,6 +113,18 @@ function getDataFromLocalStorage() {
         const storedStaff = JSON.parse(staffLocal);
         staff = storedStaff;
         renderminicards();
+    }
+}
+
+function storeRoomDataToLocalStorage() {
+    const roomsLocal = JSON.stringify(rooms);
+    localStorage.setItem("roomData", roomsLocal);
+}
+
+function getRoomDataFromLocalStorage() {
+    const roomsLocal = localStorage.getItem("roomData");
+    if (roomsLocal) {
+        rooms = JSON.parse(roomsLocal);
     }
 }
 
@@ -161,7 +180,7 @@ function renderminicards() {
     })
     document.querySelectorAll(".deletebtn").forEach(btn => {
         btn.addEventListener("click", (e) => {
-            const staffemaildlt = e.target.getAttribute("data-staff-email");
+            const staffemaildlt = e.target.closest('[data-staff-email]').getAttribute("data-staff-email");
             deleteStaff(staffemaildlt);
         });
     });
@@ -271,11 +290,15 @@ function showstaffdetails(email) {
 
 
 function assignstafftoroom() {
-    const addnewstaffBtns = document.querySelectorAll(".add-staff-btn")
+    let currentTargetRoomId = null; 
+    
+    const addnewstaffBtns = document.querySelectorAll(".add-staff-btn");
     
     addnewstaffBtns.forEach(addstaffBtn => {
-        addstaffBtn.addEventListener("click", () => {
-            const availablestafflist = document.getElementById("availablestafflist")
+        addstaffBtn.addEventListener("click", (e) => {
+            currentTargetRoomId = e.currentTarget.getAttribute("data-room-id"); 
+            
+            const availablestafflist = document.getElementById("availablestafflist");
             
             availablestafflist.innerHTML = `
                 <div class="container-fluid p-0">
@@ -284,7 +307,6 @@ function assignstafftoroom() {
                             <h4 class="mt-2">Available Staff</h4>
                         </div>
                     </div>
-                    <hr>
                     <div class="row">
                         <div class="col-12">
                             <ul class="list-group list-group-flush" id="available-staff-list">
@@ -292,31 +314,69 @@ function assignstafftoroom() {
                         </div>
                     </div>
                 </div>
-            `
+            `;
+            
             const availableList = document.getElementById("available-staff-list");
-            availableList.innerHTML = ''; 
+            
+            let availableCardsHTML = ''; 
 
-                   staff.forEach(staffMember => {
-                availableList.innerHTML += `
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <img src="${staffMember.img}" class="rounded-circle object-fit-cover me-2" style="width: 30px; height: 30px;" alt="Profile">
-                            <span>${staffMember.fname} ${staffMember.lname} (${staffMember.occupation})</span>
+            staff.forEach(staffMember => {
+                availableCardsHTML += `
+                <li class="list-group-item p-0 border-0 staff-assignment-card" data-staff-email="${staffMember.email}">
+                    <div class="card my-3">
+                        <div class="card-body py-2">
+                            <div class="d-flex align-items-center">
+                                <img src="${staffMember.img}" 
+                                    class="border border-success rounded-circle me-3" 
+                                    alt="Profile Picture" 
+                                    style="width: 60px; height: 60px; cursor: pointer;"
+                                    role="button" data-staff-email="${staffMember.email}"> 
+                                
+                                <div>
+                                    <h6 class="card-title mb-0">${staffMember.fname} ${staffMember.lname}</h6>
+                                    <p class="card-text text-muted mb-0">${staffMember.email}</p>
+                                </div>
+                                <div class="ms-auto d-flex flex-column gap-1">
+                                    <button type="button" class="assignstafftothisroom btn btn-success btn-sm" data-staff-email="${staffMember.email}">
+                                        <i class="bi bi-plus-circle"></i> Assign
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" value="${staffMember.email}" data-staff-email="${staffMember.email}">
-                    </li>
+                    </div>
+                </li>
                 `;
             });
-        })
-    })
+            
+            availableList.innerHTML = availableCardsHTML; 
 
+            document.querySelectorAll(".assignstafftothisroom").forEach(assignstafftothisroombtn => {
+                assignstafftothisroombtn.addEventListener("click", (e) => {
+                    const staffEmail = e.currentTarget.getAttribute("data-staff-email");
+                    const staffIndex = staff.findIndex(member => member.email === staffEmail);
+                    const staffMember = staff.find(member => member.email === staffEmail);
+
+                    if (staffIndex !== -1 && rooms[currentTargetRoomId]) {
+                        rooms[currentTargetRoomId].push(staffMember);
+                        
+                        staff.splice(staffIndex, 1);
+                        
+                        storeStaffDataToLocalStorage();
+                        storeRoomDataToLocalStorage();
+                        
+                        renderminicards();
+                        
+                        e.currentTarget.closest('.staff-assignment-card').remove();
+                        // renderrooms(); 
+                        console.log(currentTargetRoomId , rooms[currentTargetRoomId])
+                    }
+                });
+            });
+        });
+    });
 }
-
 assignstafftoroom();
 
-function renderavailablestafftoassign() {
-
-}
 function editstaffinfos() {
     
 }
