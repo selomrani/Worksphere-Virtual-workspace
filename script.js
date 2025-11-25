@@ -29,8 +29,7 @@ function infosvalid(staff) {
     const regex = regexemail.test(staff.email) && regexphone.test(staff.phone) && regeximgurl && lengthname
     return regex
 }
-
-
+// dynamic form ( adds experience )
 const addexperiences = document.getElementById("addexp")
 const expfield = document.getElementById("expfield")
 addexperiences.addEventListener("click", (e) => {
@@ -306,10 +305,8 @@ function assignstafftoroom() {
 
     addnewstaffBtns.forEach(addstaffBtn => {
         addstaffBtn.addEventListener("click", (e) => {
-            currentTargetRoomId = e.currentTarget.getAttribute("data-room-id");
-
+            const currentTargetRoomId = e.currentTarget.getAttribute("data-room-id");
             const availablestafflist = document.getElementById("availablestafflist");
-
             availablestafflist.innerHTML = `
                 <div class="container-fluid p-0">
                     <div class="row">
@@ -453,6 +450,8 @@ function renderRoomsStaff() {
     }
 }
 
+
+// edit function (Incomplete)
 function editstaffinfos() {
     document.querySelectorAll(".editbtntoggle").forEach(editbtntoggle => {
 
