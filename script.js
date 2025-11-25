@@ -13,13 +13,14 @@ let rooms = {
     "staff": []
 };
 
+// fetch API function
 async function fetchjson(file) {
     let response = await fetch(file)
     let data = await response.json()
 }
 fetchjson("data.json")
 
-
+// Regex validation
 function infosvalid(staff) {
     const regexemail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexphone = /^\d{10}$/;
@@ -41,6 +42,7 @@ addexperiences.addEventListener("click", (e) => {
                         <label class="form-label">To</label>
                         <input type="date" class="form-control exp-to">`
 })
+// add new staff object ( values via form inputs)
 function addnewstaff() {
     const addform = document.getElementById("addform");
     addform.addEventListener("submit", (event) => {
@@ -100,7 +102,8 @@ function addnewstaff() {
     })
 };
 addnewstaff()
-
+ 
+// local storage functons
 function storeStaffDataToLocalStorage() {
     const staffLocal = JSON.stringify(staff);
     localStorage.setItem("staffData", staffLocal);
@@ -114,7 +117,6 @@ function getDataFromLocalStorage() {
         renderminicards();
     }
 }
-
 function storeRoomDataToLocalStorage() {
     const roomsLocal = JSON.stringify(rooms);
     localStorage.setItem("roomData", roomsLocal);
@@ -127,6 +129,10 @@ function getRoomDataFromLocalStorage() {
         renderRoomsStaff();
     }
 }
+//end of local storage functions
+
+
+//delete staff via button 
 
 function deleteStaff(email) {
     const deleteemail = staff.findIndex(member => member.email === email);
@@ -135,6 +141,8 @@ function deleteStaff(email) {
     renderminicards();
 }
 
+
+//display list of all staff
 function renderminicards() {
     const minicardsrender = document.getElementById("minicardsrender");
     minicardsrender.innerHTML = "";
@@ -232,6 +240,8 @@ function renderminicards() {
         });
     });
 };
+
+//Show staff details in a modal
 function showstaffdetails(email) {
     const staffMember = staff.find(member => member.email === email);
     console.log(email)
@@ -288,18 +298,18 @@ function showstaffdetails(email) {
 
 }
 
-
+// assign staff to room (ba9i madertch logic metier)
 function assignstafftoroom() {
-    let currentTargetRoomId = null; 
-    
+    let currentTargetRoomId = null;
+
     const addnewstaffBtns = document.querySelectorAll(".add-staff-btn");
-    
+
     addnewstaffBtns.forEach(addstaffBtn => {
         addstaffBtn.addEventListener("click", (e) => {
-            currentTargetRoomId = e.currentTarget.getAttribute("data-room-id"); 
-            
+            currentTargetRoomId = e.currentTarget.getAttribute("data-room-id");
+
             const availablestafflist = document.getElementById("availablestafflist");
-            
+
             availablestafflist.innerHTML = `
                 <div class="container-fluid p-0">
                     <div class="row">
@@ -315,10 +325,10 @@ function assignstafftoroom() {
                     </div>
                 </div>
             `;
-            
+
             const availableList = document.getElementById("available-staff-list");
-            
-            let availableCardsHTML = ''; 
+
+            let availableCardsHTML = '';
 
             staff.forEach(staffMember => {
                 availableCardsHTML += `
@@ -347,8 +357,8 @@ function assignstafftoroom() {
                 </li>
                 `;
             });
-            
-            availableList.innerHTML = availableCardsHTML; 
+
+            availableList.innerHTML = availableCardsHTML;
 
             document.querySelectorAll(".assignstafftothisroom").forEach(assignstafftothisroombtn => {
                 assignstafftothisroombtn.addEventListener("click", (e) => {
@@ -358,17 +368,17 @@ function assignstafftoroom() {
 
                     if (staffIndex !== -1 && rooms[currentTargetRoomId]) {
                         rooms[currentTargetRoomId].push(staffMember);
-                        
+
                         staff.splice(staffIndex, 1);
-                        
+
                         storeStaffDataToLocalStorage();
                         storeRoomDataToLocalStorage();
-                        
+
                         renderminicards();
-                        
+
                         e.currentTarget.closest('.staff-assignment-card').remove();
-                        renderRoomsStaff(); 
-                        console.log(currentTargetRoomId , rooms[currentTargetRoomId])
+                        renderRoomsStaff();
+                        console.log(currentTargetRoomId, rooms[currentTargetRoomId])
                     }
                 });
             });
@@ -377,18 +387,18 @@ function assignstafftoroom() {
 }
 assignstafftoroom();
 
-
+// render staff for single room
 function renderStaffForSingleRoom(renderContainer, staffArray, roomId) {
-    
+
     renderContainer.innerHTML = "";
 
     staffArray.forEach(staffMember => {
-        
-        const staffCardCol = document.createElement("div");
-        staffCardCol.className = "col";
-        staffCardCol.style.maxWidth = "220px";
-        staffCardCol.setAttribute("data-staff-email", staffMember.email);
-        
+
+        const staffCard = document.createElement("div");
+        staffCard.className = "col";
+        staffCard.style.maxWidth = "220px";
+        staffCard.setAttribute("data-staff-email", staffMember.email);
+
         const cardHTML = `
             <div class="card shadow-sm border-0">
                 <div class="card-body p-2 d-flex align-items-center justify-content-between">
@@ -407,35 +417,44 @@ function renderStaffForSingleRoom(renderContainer, staffArray, roomId) {
                 </div>
             </div>
         `;
-        
-        staffCardCol.innerHTML = cardHTML;
-        renderContainer.appendChild(staffCardCol);
+
+        staffCard.innerHTML = cardHTML;
+        renderContainer.appendChild(staffCard);
     });
 }
 
 
+// function that renders cards inside all rooms
 function renderRoomsStaff() {
     const renderContainers = document.querySelectorAll(".renderRoom");
     
-    renderContainers.forEach(renderContainer => {
+    for (let i = 0; i < renderContainers.length; i++) {
+        const renderContainer = renderContainers[i];
+        
         const parentRoom = renderContainer.closest(".room");
-        if (!parentRoom) return;
+        
+        if (!parentRoom) {
+            continue;
+        }
         
         const roomId = parentRoom.id;
         
-        if (rooms[roomId] && rooms[roomId].length > 0) {
-            
+        if (rooms[roomId]) {
             const staffArray = rooms[roomId];
-            
-            renderStaffForSingleRoom(renderContainer, staffArray, roomId);
 
-        } else if (rooms[roomId]) {
-            renderContainer.innerHTML = "";
+            if (staffArray.length > 0) {
+                
+                renderStaffForSingleRoom(renderContainer, staffArray, roomId);
+
+            } else {
+                renderContainer.innerHTML = "";
+            }
         }
-    });
+    }
 }
 
-
 function editstaffinfos() {
-    
+    document.querySelectorAll(".editbtntoggle").forEach(editbtntoggle => {
+
+    })
 }
